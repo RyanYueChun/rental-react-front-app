@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 
-import { selectUsers } from './usersSlice';
+import { selectUsers, userAdded } from './usersSlice';
 
 import { isLoggedIn, loggedIn, selectLoggedUser } from './loggedUserSlice';
+import { nanoid } from '@reduxjs/toolkit';
 
 export const UserLogin = () => {
     const users = useSelector(selectUsers);
@@ -34,6 +35,21 @@ export const UserLogin = () => {
         }
     }
 
+    const onCreateAccountClicked = () => {
+        if (username && password) {
+            const userFound = users.find(user => 
+                    user.username===username &&
+                    user.password===password);
+            
+            if (userFound) {
+                setMessage('This usernale is already used!');
+            } else {
+                dispatch(userAdded({id: nanoid(), username: username, password: password}));
+                setMessage('User account successfully created!');
+            }
+        }
+    }
+
     return (
         <section>
             <h2>Login</h2>
@@ -58,6 +74,10 @@ export const UserLogin = () => {
                 />
                 <button type="button" onClick={onLoginClicked}>
                     Login
+                </button>
+                <div></div>
+                <button type="button" onClick={onCreateAccountClicked}>
+                    Create account
                 </button>
                 <p>{message}</p>
             </form>

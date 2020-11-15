@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const initialState = { id: 'default', username: '', password: '' };
 
@@ -24,15 +24,6 @@ const loggedUserSlice = createSlice({
 });
 
 export const { loggedIn, loggedOut } = loggedUserSlice.actions;
-
-/** 
- * If the current user equals the initial defaut user redirect to the login screen.
- */
-export const isLoggedIn = (currentUser) => {
-    if (currentUser !== initialState) {
-        return  <Redirect  to="/UserLogin" />
-    }
-};
 
 export const selectLoggedUser = state => state.loggedUser;
 

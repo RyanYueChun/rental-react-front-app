@@ -24,8 +24,12 @@ export const Navbar = () => {
         <h1>Redux Essentials Example</h1>
 
         <div className="navContent">
-          <div className="navLinks"></div>
-          {disconnectLink}
+          <div className="navLinks">
+            <Link to="/RentsList">Rents List</Link>
+            <Link to="/UsersList">Users List</Link>
+            <Link to="/FavouriteRentsList">Favourite Rents List</Link>
+            {disconnectLink}
+          </div>
         </div>
       </section>
     </nav>
